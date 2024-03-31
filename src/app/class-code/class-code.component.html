@@ -1,0 +1,53 @@
+<!-- INTERPOLACIÓN - Es unidireccional -->
+
+<h1>{{ title.toUpperCase() }}</h1>
+<div>
+  <p>One way binding</p>
+  <!--Propiedades de la clase-->
+  <div>
+    <input (keyup)="onPokemonNameChange($event)" [value]="pokemonName" />
+  </div>
+  <p>{{ pokemonName }}</p>
+</div>
+<hr />
+<div>
+  <p>Two way binding</p>
+  <!--Propiedades de la clase-->
+  <div>
+    <input [(ngModel)]="pokemonType" />
+    <button (click)="onClearPokemonType()">Clear</button>
+  </div>
+  <p
+    class="bold"
+    [ngClass]="{
+      red: pokemonType === 'fire',
+      yellow: pokemonType === 'electric'
+    }"
+  >
+    {{ pokemonType }}
+  </p>
+  <p class="bold" [ngClass]="pokemonTypeClasses">{{ pokemonType }}</p>
+  <button (click)="setPokemonTypeColor('red')">red</button>
+  <button (click)="setPokemonTypeColor('yellow')">yellow</button>
+</div>
+<hr />
+<div>
+  <p class="bold" [ngStyle]="{ 'font-weight': fontWeight }">
+    <button (click)="setFontWeightToBold()">Make it bold</button>
+    {{ pokemonType }}
+  </p>
+</div>
+
+<ng-container *ngIf="pokemonName === 'Pikachu'">
+  <div>
+    <p>This is pikachu</p>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="pokemons.length > 0">
+  <ul>
+    <ng-container *ngFor="let pokemon of pokemons">
+      <li>{{ pokemon }}</li>
+    </ng-container>
+  </ul>
+</ng-container>

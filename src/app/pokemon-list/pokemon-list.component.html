@@ -1,0 +1,35 @@
+<div class="search-container">
+  <input
+    class="search-box"
+    type="text"
+    [(ngModel)]="searchValue"
+    placeholder="Search Pokemon..."
+  />
+  <button (click)="searchPokemon()" class="search-button">Search</button>
+</div>
+
+<!-- RESULTADOS BUSCADOR Mostrar solo el Pokémon encontrado si existe -->
+<ng-container *ngIf="foundPokemon" class="grid-container">
+  <app-pokemon-card [pokemon]="foundPokemon"></app-pokemon-card>
+  <div class="back-button">
+    <button (click)="goBack()" class="search-button">Back</button>
+  </div>
+</ng-container>
+
+<!-- PREDETERMINADO -  Ocultar la lista de todos los Pokémon si se encuentra uno específico -->
+
+<div *ngIf="!foundPokemon" class="grid-container">
+  <ng-container *ngFor="let pokemon of pokemons">
+    <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
+  </ng-container>
+</div>
+
+<!-- Botón Load more. Deshabilitar cuando encuentre un pokemon -->
+<div *ngIf="!foundPokemon" class="buttons-front">
+  <button (click)="loadMorePokemons()" class="next-button">Load more</button>
+</div>
+
+<!-- El atributo [(ngModel)] establece una comunicación bidireccional 
+  entre el input y la variable searchValue en el componente. 
+  Esto significa que cualquier cambio en el input se reflejará en la variable, 
+  y cualquier cambio en la variable se reflejará en el input. -->
