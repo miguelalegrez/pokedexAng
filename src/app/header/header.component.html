@@ -1,1 +1,15 @@
-<p>header works!</p>
+<header>
+  <div class="main-header">
+    <div id="main-logo">
+      <img src="/assets/logo-pokemon.png" alt="logo-pokemon" />
+    </div>
+    <nav class="menu">
+      <ul>
+        <li><a routerLink="/pokemon-list">Pokemon List</a></li>
+        <li><a routerLink="/pokemon-detail/1">Pokemon Detail</a></li>
+        <li><a routerLink="/class-code">Class Code</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<router-outlet></router-outlet>
