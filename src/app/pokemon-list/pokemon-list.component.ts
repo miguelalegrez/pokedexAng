@@ -19,6 +19,7 @@ export class PokemonListComponent implements OnInit {
   foundPokemon: Pokemon | undefined; // Pokemon encontrado
   pokemonLimit: number = 20; // Límite inicial de Pokémon a cargar
   pokemonOffset: number = 0; // Desplazamiento inicial
+  filteredPokemons: Pokemon[] | null = [];
 
   constructor(private pokemonUtils: PokemonUtils) {}
 
@@ -33,7 +34,7 @@ export class PokemonListComponent implements OnInit {
       // Manejar el error adecuadamente, por ejemplo, mostrando un mensaje de error al usuario.
     }
   }
-
+  // Función para cargar más pokemon con el botón Load More
   async loadMorePokemons(): Promise<void> {
     this.pokemonOffset += this.pokemonLimit; // Incrementar el desplazamiento antes de cargar más Pokémon
     const fetchedPokemons = await this.pokemonUtils.fetchPokemons(
@@ -50,13 +51,12 @@ export class PokemonListComponent implements OnInit {
     // Verificar si se ha ingresado un valor de búsqueda
     if (this.searchValue != '') {
       // Lógica para buscar el Pokémon correspondiente según el valor de búsqueda
-      // Por ejemplo, puedes iterar sobre la lista de Pokémon y encontrar el que coincida con el valor de búsqueda
       this.foundPokemon = await this.pokemonUtils.searchPokemonByName(
         this.searchValue
       );
 
+      // Checkear que se ha encontrado o no
       if (this.foundPokemon) {
-        // Pokémon encontrado, puedes hacer lo que quieras con él, como mostrarlo en la interfaz de usuario
         console.log('Pokémon encontrado:', this.foundPokemon);
       } else {
         console.log(
@@ -68,10 +68,23 @@ export class PokemonListComponent implements OnInit {
       console.log('Ingrese un valor de búsqueda');
     }
   }
-
+  // RESETEAR ELEMENTOS DE FILTRADO Y BUSQUEDA
   goBack() {
     this.foundPokemon = undefined; // Limpiar el Pokémon encontrado
     this.searchValue = ''; // Limpiar el valor de búsqueda
+  }
+
+  cleanFilter() {
+    this.filteredPokemons = null; // Resetear el array de pokemons filtrados
+  }
+  //
+
+  filterValue: string = '';
+
+  async filterPokemonsByType(): Promise<void> {
+    this.filteredPokemons = await this.pokemonUtils.fetchPokemonsByType(
+      this.filterValue
+    );
   }
 }
 

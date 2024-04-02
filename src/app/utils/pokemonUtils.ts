@@ -11,6 +11,7 @@ export class PokemonUtils {
     const data = await response.json();
 
     // Para cada Pokémon en los resultados, obtener los detalles completos
+    // el Results es una propiedad que proviene de la estructura de los datos devueltos por la API
     const pokemonDetailsPromises = data.results.map((element: any) => {
       return this.fetchPokemonDetailByUrl(element.url);
     });
@@ -75,4 +76,40 @@ export class PokemonUtils {
     };
     return pokemon;
   }
+
+  async fetchPokemonsByType(type: string): Promise<Pokemon[]> {
+    //IMPORTANTE: La url puede devolver los por type directamente.
+    const response = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
+    const data = await response.json();
+
+    // el .pokemon es una propiedad que proviene de la estructura de los datos devueltos por la API
+    const pokemonPromises = data.pokemon.map(async (pokemonData: any) => {
+      const pokemonResponse = await fetch(pokemonData.pokemon.url);
+      const pokemonDetails = await pokemonResponse.json();
+
+      return {
+        id: pokemonDetails.id,
+        name: pokemonDetails.name,
+        size: pokemonDetails.height,
+        types: pokemonDetails.types.map((type: any) => type.type.name),
+        abilities: pokemonDetails.abilities.map(
+          (ability: any) => ability.ability.name
+        ),
+        imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonDetails.id}.png`,
+      };
+    });
+
+    return Promise.all(pokemonPromises);
+  }
 }
+/*Cuando trabajamos con la API de Pokémon, si queremos obtener todos los Pokémon de un cierto tipo, primero hacemos una llamada 
+a la URL que proporciona esa información basada en el tipo de Pokémon que estamos buscando.
+
+Por ejemplo, si queremos obtener todos los Pokémon de tipo "fuego", hacemos una llamada a https://pokeapi.co/api/v2/type/fire. 
+Esta llamada nos devuelve un objeto JSON que contiene datos sobre los Pokémon de tipo fuego, incluyendo una lista de Pokémon 
+y sus respectivas URLs.
+
+Entonces, necesitamos hacer una segunda llamada a cada una de esas URLs para obtener los detalles específicos de cada Pokémon. 
+Es por eso que en la función fetchPokemonsByType, primero iteramos sobre la lista de Pokémon obtenida de la primera llamada, 
+y luego hacemos una llamada a la URL de cada Pokémon para obtener sus detalles. 
+Esta es la razón por la que necesitamos dos llamadas en este caso.*/

@@ -1,3 +1,7 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  --color-primary: #3a5da9; /* Define una variable de color primario */
+}
 .grid-container{
     display: grid;
     align-items: center;
@@ -12,6 +16,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    
   }
   
   .search-box {
@@ -26,12 +31,23 @@
   
   .search-button {
     border-radius: 5px;
-    background-color: rgb(40, 195, 216);
+    background-color: var(--color-primary);
     color: white;
     width: 100px;
     height: 40px;
     font-size: 14px;
     margin-left: 10px; /* Ajusta el margen izquierdo según sea necesario */
+    margin-right: 30px;
+  }
+  .filter-button{
+    border-radius: 5px;
+    background-color: var(--color-primary);
+    color: white;
+    width: 100px;
+    height: 40px;
+    font-size: 14px;
+    margin-left: 10px; /* Ajusta el margen izquierdo según sea necesario */
+    margin-right: 10px;
   }
 
 
@@ -44,7 +60,7 @@
 
 .next-button{
     border-radius: 5px;
-    background-color: rgb(40, 195, 216);
+    background-color: var(--color-primary);
     color: white;
     width:200px;
     height: 60px;
@@ -59,3 +75,9 @@
   margin-top: 20px; 
 }
 
+
+label{
+  margin: 5px;
+  width:100px;
+  height:30px;
+}
