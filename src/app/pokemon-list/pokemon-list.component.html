@@ -48,9 +48,7 @@
   <!-- Si no hay pokemons filtrados y no se ha encontrado ningún Pokémon, mostrar los primeros 20.
    SOLUCIONADO EL PROBLEMA DE MOSTRAR LOS 20 PRIMEROS: Si el array es 0 que muestre los 20 pokemons iniciales -->
   <ng-container
-    *ngIf="
-      !foundPokemon && (!filteredPokemons || filteredPokemons.length === 0)
-    "
+    *ngIf="!foundPokemon && (!filteredPokemons || filteredPokemons.length == 0)"
   >
     <ng-container *ngFor="let pokemon of pokemons">
       <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>

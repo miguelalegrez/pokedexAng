@@ -1,14 +1,14 @@
 <!-- INTERPOLACIÓN - Es unidireccional -->
 
 <h1>{{ title.toUpperCase() }}</h1>
-<div>
+<!--<div>
   <p>One way binding</p>
-  <!--Propiedades de la clase-->
+  <!--Propiedades de la clase
   <div>
     <input (keyup)="onPokemonNameChange($event)" [value]="pokemonName" />
   </div>
   <p>{{ pokemonName }}</p>
-</div>
+</div> -->
 <hr />
 <div>
   <p>Two way binding</p>
@@ -17,6 +17,7 @@
     <input [(ngModel)]="pokemonType" />
     <button (click)="onClearPokemonType()">Clear</button>
   </div>
+  <!--
   <p
     class="bold"
     [ngClass]="{
@@ -51,3 +52,4 @@
     </ng-container>
   </ul>
 </ng-container>
+--></div>

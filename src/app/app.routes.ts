@@ -4,6 +4,11 @@ import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
 import { ClassCodeComponent } from './class-code/class-code.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'pokemon-list',
+    pathMatch: 'full',
+  },
   { path: 'pokemon-detail/:id', component: PokemonDetailComponent },
   { path: 'pokemon-list', component: PokemonListComponent },
   { path: 'class-code', component: ClassCodeComponent },
